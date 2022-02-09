@@ -1,12 +1,11 @@
 package demo.controller;
 
+import demo.database.ConnectionDB;
 import demo.exceptions.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,14 +16,79 @@ import java.util.Map;
 public class MessageController {
     private int counter = 4;
 
-    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
-        add(new HashMap<String, String>() {{ put("id", "1"); put("text", "First message"); }});
-        add(new HashMap<String, String>() {{ put("id", "2"); put("text", "Second message"); }});
-        add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
-    }};
+//    private ConnectionDB connection;
+//    private Statement statement;
+//    private ResultSet resultSet;
+
+    List<Map<String, String>> messages = new ArrayList<Map<String, String>>();
+
+//    private void getConnection() {
+//        Connection connection = null;
+//        String URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11471478";
+//        String USERNAME = "sql11471478";
+//        String PASSWORD = "rWvpVWN3Zb";
+//
+//        try {
+//            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//            statement = connection.createStatement();
+//            resultSet = statement.executeQuery("select * from Customers");
+//
+//            if (statement.execute("select * from Customers")) {
+//                resultSet = statement.getResultSet();
+//
+//                while (resultSet.next()) {
+//                    System.out.println(resultSet.getString("FirstName"));
+//                    int id = resultSet.getInt("Id");
+//                    String message = resultSet.getString("FirstName");
+//
+//                    messages.add(new HashMap<String, String>() {{
+//                        put("id", Integer.toString(id));
+//                        put("text", message);
+//                    }});
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
+//        add(new HashMap<String, String>() {{ put("id", "1"); put("text", "First message"); }});
+//        add(new HashMap<String, String>() {{ put("id", "2"); put("text", "Second message"); }});
+//        add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
+//    }};
 
     @GetMapping
     public List<Map<String, String>> list() {
+        Connection connection = null;
+        Statement statement;
+        ResultSet resultSet;
+        String URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11471478";
+        String USERNAME = "sql11471478";
+        String PASSWORD = "rWvpVWN3Zb";
+
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select * from Customers");
+
+            if (statement.execute("select * from Customers")) {
+                resultSet = statement.getResultSet();
+
+                while (resultSet.next()) {
+                    System.out.println(resultSet.getString("FirstName"));
+                    int id = resultSet.getInt("Id");
+                    String message = resultSet.getString("FirstName");
+
+                    messages.add(new HashMap<String, String>() {{
+                        put("id", Integer.toString(id));
+                        put("text", message);
+                    }});
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return messages;
     }
 
