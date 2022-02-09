@@ -18,6 +18,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<jdkVersion>1.8</jdkVersion>
 	</properties>
 
 	<dependencies>
@@ -49,6 +50,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>3.0.3</version>
+				<configuration>
+					<appName>lealangback</appName>
+					<processTypes>
+						<web>java $JAVA_OPTS -cp target/classes:target/dependency/* DemoApplication</web>
+					</processTypes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
