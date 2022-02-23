@@ -75,7 +75,6 @@ public class MessageController {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from Words");
 
-            if (statement.execute("select * from Words")) {
                 resultSet = statement.getResultSet();
 
                 while (resultSet.next()) {
@@ -91,7 +90,6 @@ public class MessageController {
                     words = new Words(id, name, transcription, image, translate, category, language, translateTo);
                     wordsList.add(words);
                 }
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
