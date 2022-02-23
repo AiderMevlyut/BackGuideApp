@@ -58,7 +58,7 @@ public class MessageController {
 //        add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
 //    }};
 
-    @RequestMapping("allWords")
+    @GetMapping("allWords")
     public List<Words> getAllListWords() {
         Connection connection = null;
         Statement statement;
