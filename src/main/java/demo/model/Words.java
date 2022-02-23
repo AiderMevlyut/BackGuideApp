@@ -24,4 +24,18 @@ public class Words {
         this.language = language;
         this.translateTo = translateTo;
     }
+
+    @Override
+    public String toString() {
+        return "Words{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", transcription='" + transcription + '\'' +
+                ", image='" + image + '\'' +
+                ", translate='" + translate + '\'' +
+                ", category='" + category + '\'' +
+                ", language='" + language + '\'' +
+                ", translateTo='" + translateTo + '\'' +
+                '}';
+    }
 }

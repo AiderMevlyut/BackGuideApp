@@ -1,6 +1,10 @@
 package demo.database;
 
+import demo.model.Words;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConnectionDB {
     private ConnectionDB connection;
@@ -30,9 +34,51 @@ public class ConnectionDB {
         }
     }
 
-    // 14
+
     public static void main(String[] args) {
-        ConnectionDB connectionDB = new ConnectionDB();
-        connectionDB.getConnection();
+//        ConnectionDB connectionDB = new ConnectionDB();
+//        connectionDB.getConnection();
+
+        System.out.println(getAllListWordsTest());
+    }
+
+    public static List<Words> getAllListWordsTest() {
+        Connection connection = null;
+        Statement statement;
+        ResultSet resultSet;
+        String URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11473444";
+        String USERNAME = "sql11473444";
+        String PASSWORD = "Q35HAZPata";
+
+        List<Words> wordsList = new ArrayList<>();
+        Words words;
+
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select * from Words");
+
+            if (statement.execute("select * from Words")) {
+                resultSet = statement.getResultSet();
+
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("Id");
+                    String name = resultSet.getString("name");
+                    String transcription = resultSet.getString("transcription");
+                    String image = resultSet.getString("image");
+                    String translate = resultSet.getString("translate");
+                    String category = resultSet.getString("category");
+                    String language = resultSet.getString("language");
+                    String translateTo = resultSet.getString("translateTo");
+
+                    words = new Words(id, name, transcription, image, translate, category, language, translateTo);
+                    wordsList.add(words);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return wordsList;
     }
 }

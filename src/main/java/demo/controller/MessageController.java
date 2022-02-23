@@ -21,7 +21,7 @@ public class MessageController {
 //    private Statement statement;
 //    private ResultSet resultSet;
 
-    List<Map<String, String>> messages = new ArrayList<Map<String, String>>();
+    List<Words> messages = new ArrayList<Words>();
 
 //    private void getConnection() {
 //        Connection connection = null;
@@ -89,51 +89,51 @@ public class MessageController {
                     String translateTo = resultSet.getString("translateTo");
 
                     words = new Words(id, name, transcription, image, translate, category, language, translateTo);
-                    wordsList.add(words);
+                    messages.add(words);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return wordsList;
+        return messages;
     }
 
-    @GetMapping("{id}")
-    public Map<String, String> getOne(@PathVariable String id) {
-        return getMessage(id);
-    }
+//    @GetMapping("{id}")
+//    public Map<String, String> getOne(@PathVariable String id) {
+//        return getMessage(id);
+//    }
 
-    private Map<String, String> getMessage(@PathVariable String id) {
-        return messages.stream()
-                .filter(message -> message.get("id").equals(id))
-                .findFirst()
-                .orElseThrow(NotFoundException::new);
-    }
+//    private Map<String, String> getMessage(@PathVariable String id) {
+//        return messages.stream()
+//                .filter(message -> message.get("id").equals(id))
+//                .findFirst()
+//                .orElseThrow(NotFoundException::new);
+//    }
+//
+//    @PostMapping
+//    public Map<String, String> create(@RequestBody Map<String, String> message) {
+//        message.put("id", String.valueOf(counter++));
+//
+//        messages.add(message);
+//
+//        return message;
+//    }
 
-    @PostMapping
-    public Map<String, String> create(@RequestBody Map<String, String> message) {
-        message.put("id", String.valueOf(counter++));
-
-        messages.add(message);
-
-        return message;
-    }
-
-    @PutMapping("{id}")
-    public Map<String, String> update(@PathVariable String id, @RequestBody Map<String, String> message) {
-        Map<String, String> messageFromDb = getMessage(id);
-
-        messageFromDb.putAll(message);
-        messageFromDb.put("id", id);
-
-        return messageFromDb;
-    }
-
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable String id) {
-        Map<String, String> message = getMessage(id);
-
-        messages.remove(message);
-    }
+//    @PutMapping("{id}")
+//    public Map<String, String> update(@PathVariable String id, @RequestBody Map<String, String> message) {
+//        Map<String, String> messageFromDb = getMessage(id);
+//
+//        messageFromDb.putAll(message);
+//        messageFromDb.put("id", id);
+//
+//        return messageFromDb;
+//    }
+//
+//    @DeleteMapping("{id}")
+//    public void delete(@PathVariable String id) {
+//        Map<String, String> message = getMessage(id);
+//
+//        messages.remove(message);
+//    }
 }
