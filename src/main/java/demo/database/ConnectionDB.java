@@ -46,9 +46,9 @@ public class ConnectionDB {
         Connection connection = null;
         Statement statement;
         ResultSet resultSet;
-        String URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11473444";
-        String USERNAME = "sql11473444";
-        String PASSWORD = "Q35HAZPata";
+        String URL = "jdbc:postgresql://kashin.db.elephantsql.com/uqdedbbb";
+        String USERNAME = "uqdedbbb";
+        String PASSWORD = "CPPm678wl7lrs_9tfhzv-l37Wmzxnclu";
 
         List<Words> wordsList = new ArrayList<>();
         Words words;
