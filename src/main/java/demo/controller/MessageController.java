@@ -59,7 +59,7 @@ public class MessageController {
 //    }};
 
     @GetMapping("allWords")
-    public List<Words> getAllListWords() {
+    public List<String> getAllListWords() {
         Connection connection = null;
         Statement statement;
         ResultSet resultSet;
@@ -67,7 +67,7 @@ public class MessageController {
         String USERNAME = "sql11473444";
         String PASSWORD = "Q35HAZPata";
 
-        List<Words> wordsList = new ArrayList<>();
+        List<String> wordsList = new ArrayList<>();
         Words words = new Words();
 
         try {
@@ -75,6 +75,7 @@ public class MessageController {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from Words");
 
+            if (statement.execute("select * from Words")) {
                 resultSet = statement.getResultSet();
 
                 while (resultSet.next()) {
@@ -87,9 +88,10 @@ public class MessageController {
                     String language = resultSet.getString("language");
                     String translateTo = resultSet.getString("translateTo");
 
-                    words = new Words(id, name, transcription, image, translate, category, language, translateTo);
-                    wordsList.add(words);
+                    //words = new Words(id, name, transcription, image, translate, category, language, translateTo);
+                    wordsList.add(name);
                 }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
