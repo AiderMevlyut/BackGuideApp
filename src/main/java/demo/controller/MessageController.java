@@ -89,14 +89,14 @@ public class MessageController {
                     String translateTo = resultSet.getString("translateTo");
 
                     words = new Words(id, name, transcription, image, translate, category, language, translateTo);
-                    messages.add(words);
+                    wordsList.add(words);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return messages;
+        return wordsList;
     }
 
 //    @GetMapping("{id}")
