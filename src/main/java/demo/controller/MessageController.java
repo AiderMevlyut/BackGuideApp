@@ -2,6 +2,7 @@ package demo.controller;
 
 import demo.database.ConnectionDB;
 import demo.exceptions.NotFoundException;
+import demo.model.Words;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("message")
+@RequestMapping("data")
 public class MessageController {
     private int counter = 4;
 
@@ -57,39 +58,45 @@ public class MessageController {
 //        add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
 //    }};
 
-    @GetMapping
-    public List<Map<String, String>> list() {
+    @RequestMapping("allWords")
+    public List<Words> getAllListWords() {
         Connection connection = null;
         Statement statement;
         ResultSet resultSet;
-        String URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11471478";
-        String USERNAME = "sql11471478";
-        String PASSWORD = "rWvpVWN3Zb";
+        String URL = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11473444";
+        String USERNAME = "sql11473444";
+        String PASSWORD = "Q35HAZPata";
+
+        List<Words> wordsList = new ArrayList<>();
+        Words words = new Words();
 
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from Customers");
+            resultSet = statement.executeQuery("select * from Words");
 
-            if (statement.execute("select * from Customers")) {
+            if (statement.execute("select * from Words")) {
                 resultSet = statement.getResultSet();
 
                 while (resultSet.next()) {
-                    System.out.println(resultSet.getString("FirstName"));
                     int id = resultSet.getInt("Id");
-                    String message = resultSet.getString("FirstName");
+                    String name = resultSet.getString("name");
+                    String transcription = resultSet.getString("transcription");
+                    String image = resultSet.getString("image");
+                    String translate = resultSet.getString("translate");
+                    String category = resultSet.getString("category");
+                    String language = resultSet.getString("language");
+                    String translateTo = resultSet.getString("translateTo");
 
-                    messages.add(new HashMap<String, String>() {{
-                        put("id", Integer.toString(id));
-                        put("text", message);
-                    }});
+                    words = new Words(id, name, transcription, image, translate, category, language, translateTo);
+                    wordsList.add(words);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return messages;
+        return wordsList;
     }
 
     @GetMapping("{id}")
