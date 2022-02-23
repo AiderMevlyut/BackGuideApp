@@ -3,6 +3,7 @@ package demo.controller;
 import demo.database.ConnectionDB;
 import demo.exceptions.NotFoundException;
 import demo.model.Words;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,8 +59,8 @@ public class MessageController {
 //        add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
 //    }};
 
-    @GetMapping("allWords")
-    public List<String> getAllListWords() {
+    @GetMapping
+    public List<Words> getAllListWords() {
         Connection connection = null;
         Statement statement;
         ResultSet resultSet;
@@ -67,7 +68,7 @@ public class MessageController {
         String USERNAME = "sql11473444";
         String PASSWORD = "Q35HAZPata";
 
-        List<String> wordsList = new ArrayList<>();
+        List<Words> wordsList = new ArrayList<>();
         Words words = new Words();
 
         try {
@@ -88,8 +89,8 @@ public class MessageController {
                     String language = resultSet.getString("language");
                     String translateTo = resultSet.getString("translateTo");
 
-                    //words = new Words(id, name, transcription, image, translate, category, language, translateTo);
-                    wordsList.add(name);
+                    words = new Words(id, name, transcription, image, translate, category, language, translateTo);
+                    wordsList.add(words);
                 }
             }
         } catch (SQLException e) {

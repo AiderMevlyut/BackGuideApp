@@ -25,6 +25,38 @@ public class Words {
         this.translateTo = translateTo;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTranscription() {
+        return transcription;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getTranslate() {
+        return translate;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getTranslateTo() {
+        return translateTo;
+    }
+
     @Override
     public String toString() {
         return "Words{" +
